@@ -29,7 +29,7 @@ namespace RegistrationService
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<UserContext>(opt =>
-                opt.UseInMemoryDatabase("User"));
+                opt.UseSqlServer(@"Data Source=(localdb)\mssqllocaldb;Initial Catalog=Sales;Integrated Security=True;Pooling=False"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
