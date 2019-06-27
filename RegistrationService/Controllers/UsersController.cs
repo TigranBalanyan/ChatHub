@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RegistrationService.Models;
 
 namespace RegistrationService.Controllers
 {
+   // [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -91,7 +92,7 @@ namespace RegistrationService.Controllers
             }
 
             _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }

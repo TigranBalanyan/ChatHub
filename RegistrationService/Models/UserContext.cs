@@ -15,6 +15,7 @@ namespace RegistrationService.Models
         }
 
         public DbSet<BasicUser> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
