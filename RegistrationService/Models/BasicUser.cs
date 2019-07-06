@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RegistrationService.Models
 {
-    public class BasicUser
+    public class User
     {
         public int Id { get; set; }
         public string FullName { get; set; }

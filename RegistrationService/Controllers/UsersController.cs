@@ -23,7 +23,7 @@ namespace RegistrationService.Controllers
 
         // GET: api/Users
         [HttpGet]
-        public IEnumerable<BasicUser> GetUsers()
+        public IEnumerable<User> GetUsers()
         {
             return _context.Users;
         }
@@ -49,7 +49,7 @@ namespace RegistrationService.Controllers
 
         // PUT: api/Users/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser([FromRoute] int id, [FromBody] BasicUser user)
+        public async Task<IActionResult> PutUser([FromRoute] int id, [FromBody] User user)
         {
             if (!ModelState.IsValid)
             {
@@ -84,7 +84,7 @@ namespace RegistrationService.Controllers
 
         // POST: api/Users
         [HttpPost]
-        public async Task<IActionResult> PostUser([FromBody] BasicUser user)
+        public async Task<IActionResult> PostUser([FromBody] User user)
         {
             if (!ModelState.IsValid)
             {

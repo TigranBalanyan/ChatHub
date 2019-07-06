@@ -14,20 +14,20 @@ namespace RegistrationService.Models
         {
         }
 
-        public DbSet<BasicUser> Users { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<BasicUser>().ToTable("Users");
-            builder.Entity<BasicUser>().HasKey(p => p.Id);
-            builder.Entity<BasicUser>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<BasicUser>().Property(p => p.FullName).IsRequired().HasMaxLength(50);
-            builder.Entity<BasicUser>().Property(p => p.Password).IsRequired();
-            builder.Entity<BasicUser>().Property(p => p.Email).IsRequired().HasMaxLength(320);
-            builder.Entity<BasicUser>().HasMany(p => p.Roles);
+            builder.Entity<User>().ToTable("Users");
+            builder.Entity<User>().HasKey(p => p.Id);
+            builder.Entity<User>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<User>().Property(p => p.FullName).IsRequired().HasMaxLength(50);
+            builder.Entity<User>().Property(p => p.Password).IsRequired();
+            builder.Entity<User>().Property(p => p.Email).IsRequired().HasMaxLength(320);
+            builder.Entity<User>().HasMany(p => p.Roles);
 
             //builder.Entity<Category>().HasData
             //(
