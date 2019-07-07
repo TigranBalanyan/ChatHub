@@ -10,8 +10,9 @@ using RegistrationService.Models;
 namespace RegistrationService.Controllers
 {
    // [Authorize]
-    [Route("api/[controller]")]
+    [Route("users")]
     [ApiController]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly UserContext _context;
@@ -20,6 +21,7 @@ namespace RegistrationService.Controllers
         {
             _context = context;
         }
+
 
         // GET: api/Users
         [HttpGet]
@@ -84,15 +86,18 @@ namespace RegistrationService.Controllers
 
         // POST: api/Users
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> PostUser([FromBody] User user)
         {
+           //return  new JsonResult(from c in User.Claims select new { c.Type, c.Value });
+           // if(canAccess.Value )
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Users.Add(user);
-            _context.SaveChanges();
+            await _context.Users.AddAsync(user);
+            _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
