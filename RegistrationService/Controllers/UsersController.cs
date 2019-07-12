@@ -12,7 +12,6 @@ namespace RegistrationService.Controllers
    // [Authorize]
     [Route("users")]
     [ApiController]
-    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly UserContext _context;
