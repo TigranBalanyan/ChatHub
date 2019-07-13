@@ -21,7 +21,13 @@ namespace IdentityServer
         {
             return new List<ApiResource>
             {
-                new ApiResource("RegistrationService", "RegisterAPI")
+                new ApiResource("ActiveUserService", "ActiveUsers")
+                {
+                    ApiSecrets =
+                    {
+                        new Secret("Alina".Sha512())
+                    }
+                }
             };
         }
 

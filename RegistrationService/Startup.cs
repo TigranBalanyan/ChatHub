@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using DbAccessLayer.Context;
+using DbAccessLayer.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,8 +11,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using RegistrationService.Models;
 
 namespace RegistrationService
 {
@@ -40,9 +39,10 @@ namespace RegistrationService
                 options.Audience = "RegistrationService";
             });
 
-            services.AddDbContext<UserContext>(opt =>
-                    opt.UseSqlServer(Configuration.GetConnectionString("UserDatabase")));
+            services.AddScoped<IUserRepository, UserRepository>();
 
+            services.AddDbContext<AppDbContext>(opt =>
+                    opt.UseSqlServer(Configuration.GetConnectionString("UserDatabase")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
