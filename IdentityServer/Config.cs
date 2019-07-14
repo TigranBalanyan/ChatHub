@@ -13,7 +13,7 @@ namespace IdentityServer
         {
             return new IdentityResource[]
             {
-                new IdentityResources.OpenId()
+                new IdentityResources.OpenId(),
             };
         }
 
@@ -37,7 +37,7 @@ namespace IdentityServer
             {
                 new Client
                 {
-                    ClientId = "registrationClient",
+                    ClientId = "activeUsersId",
 
                     // no interactive user, use the clientid/secret for authentication
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
@@ -49,7 +49,7 @@ namespace IdentityServer
                     },
 
                     // scopes that client has access to
-                    AllowedScopes = { "RegistrationService" }
+                    AllowedScopes = { "ActiveUserService" }
                 }
             };
         }

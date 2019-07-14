@@ -16,7 +16,5 @@ namespace DbAccessLayer.Context
 
 		public DbSet<User> Users { get; set; }
 
-        
-
 	}
 }

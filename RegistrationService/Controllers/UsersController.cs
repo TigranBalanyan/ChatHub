@@ -24,16 +24,16 @@ namespace RegistrationService.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterUser([FromBody] User user)
         {
-           //return  new JsonResult(from c in User.Claims select new { c.Type, c.Value });
-           // if(canAccess.Value )
-            if (!ModelState.IsValid)
+            //return  new JsonResult(from c in User.Claims select new { c.Type, c.Value });
+            // if(canAccess.Value )
+            if (!ModelState.IsValid || !_userRepository.RegisterUserAsync(user))
             {
                 return BadRequest(ModelState);
             }
-
-            _userRepository.RegisterUserAsync(user);
-
-            return Ok();
+            else
+            {
+                return Ok();
+            }
         }
 
         [HttpGet]

@@ -3,13 +3,15 @@
 
 using System;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
+using IdentityServer4;
 using DbAccessLayer.Repositories;
+using IdentityServer4.AccessTokenValidation;
 using IdentityServer4.Services;
 using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace IdentityServer
 {
@@ -36,6 +38,17 @@ namespace IdentityServer
                 .AddInMemoryClients(Config.GetClients())
                 .AddProfileService<ProfileService>();
 
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(o =>
+            {
+                o.Authority = "http://localhost:5000";
+                o.Audience = "ActiveUserService";
+                o.RequireHttpsMetadata = false;
+            });
+
             services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
             services.AddTransient<IProfileService, ProfileService>();
 
@@ -51,6 +64,10 @@ namespace IdentityServer
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseIdentityServer();
+
+            app.UseAuthentication();
+
             if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -59,7 +76,6 @@ namespace IdentityServer
             // uncomment if you want to support static files
             //app.UseStaticFiles();
 
-            app.UseIdentityServer();
 
             // uncomment, if you wan to add an MVC-based UI
             //app.UseMvcWithDefaultRoute();

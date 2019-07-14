@@ -48,7 +48,7 @@ namespace IdentityServer
                     if (!string.IsNullOrEmpty(userId?.Value) && long.Parse(userId.Value) > 0)
                     {
                         //get user from db (find user by user id)
-                        var user = await _userRepository.FindAsync(long.Parse(userId.Value));
+                        var user = await _userRepository.FindAsync(Convert.ToString(userId.Value));
 
                         // issue the claims for the user
                         if (user != null)
