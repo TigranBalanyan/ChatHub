@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistrationService", "RegistrationService\RegistrationService.csproj", "{7F7A77DC-5DAE-43F6-B52B-1F6F6400D75F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountControlService", "RegistrationService\AccountControlService.csproj", "{7F7A77DC-5DAE-43F6-B52B-1F6F6400D75F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "IdentityServer\IdentityServer.csproj", "{B1317D62-7A34-42C7-8A2F-139B282708D2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ActiveUserService", "..\..\VideoChat-master\LocalIPUpdater\LocalIPUpdater\ActiveUserService.csproj", "{CDF21A9F-59A5-41C7-BC0F-5B37FCA027B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbAccessLayer", "DbAccessLayer\DbAccessLayer.csproj", "{0E7B5010-ACD6-4F9A-891B-21BC0E484D05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbAccessLayer", "DbAccessLayer\DbAccessLayer.csproj", "{0E7B5010-ACD6-4F9A-891B-21BC0E484D05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -9,7 +9,7 @@ namespace DbAccessLayer.Repositories
 {
     public interface IUserRepository
     {
-        bool RegisterUserAsync(User user);
+        Task<bool> RegisterUserAsync(User user);
         IList<User> GetAllUsersFromDb();
         Task<User> FindAsync(string userName);
         Task<IEnumerable<User>> GetActiveUsers();

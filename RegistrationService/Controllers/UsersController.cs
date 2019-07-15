@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using DbAccessLayer.Models;
 using DbAccessLayer.Repositories;
@@ -8,27 +9,29 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace RegistrationService.Controllers
 {
-   // [Authorize]dsds
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserRepository userRepository;
 
         public UsersController(IUserRepository userRepository)
         {
-            _userRepository = userRepository;
+            this.userRepository = userRepository;
         }
 
         // POST: api/Users
         [HttpPost]
         public async Task<IActionResult> RegisterUser([FromBody] User user)
         {
-            //return  new JsonResult(from c in User.Claims select new { c.Type, c.Value });
-            // if(canAccess.Value )
-            if (!ModelState.IsValid || !_userRepository.RegisterUserAsync(user))
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }
+            var response =  await userRepository.RegisterUserAsync(user);
+            if (!response)
+            {
+                return BadRequest("Please enter a different email or username");
             }
             else
             {
@@ -39,7 +42,7 @@ namespace RegistrationService.Controllers
         [HttpGet]
         public async Task<IList<User>> GetAllUsers()
         {
-            return _userRepository.GetAllUsersFromDb();
+            return userRepository.GetAllUsersFromDb();
         }
     }
 }

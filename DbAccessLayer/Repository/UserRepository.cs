@@ -29,17 +29,17 @@ namespace DbAccessLayer.Repositories
             return _context.Users.ToList();
         }
 
-        public bool RegisterUserAsync(User user)
+        public async Task<bool> RegisterUserAsync(User user)
         {
-            if (_context.Users.Any(p => p.Username == user.Username) || _context.Users.Any(p => p.Email == user.Email))
+            if (await _context.Users.AnyAsync(p => p.Username == user.Username) ||  await _context.Users.AnyAsync(p => p.Email == user.Email))
             {
                 return false;
             }
             else
             {
-                _context.Users.Add(user);
-                _context.SaveChanges();
-                return true;
+               await  _context.Users.AddAsync(user);
+               await _context.SaveChangesAsync();
+               return true;
             }
         }
     }
