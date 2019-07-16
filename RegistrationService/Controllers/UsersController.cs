@@ -13,7 +13,7 @@ namespace RegistrationService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController : Controller
     {
         private readonly IUserRepository userRepository;
         private readonly IMapper mapper; 

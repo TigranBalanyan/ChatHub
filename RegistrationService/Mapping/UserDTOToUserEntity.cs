@@ -12,7 +12,7 @@ namespace AccountControlService.Mapping
     {
         public UserDTOToUserEntity()
         {
-            CreateMap<UserDTO, UserDTO>();
+            CreateMap<UserDTO, UserEntity>();
         }
     }
 }

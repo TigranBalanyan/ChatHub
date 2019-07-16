@@ -1,4 +1,5 @@
-﻿using DbAccessLayer.ModelsDTO;
+﻿using DbAccessLayer.Entities;
+using DbAccessLayer.ModelsDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

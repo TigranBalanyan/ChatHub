@@ -24,9 +24,9 @@ namespace DbAccessLayer.Repository
             return await _context.Users.Where(p => p.IPLocal != null).ToListAsync();
         }
 
-        public IList<UserEntity> GetAllUsersFromDb()
+        public async Task<IEnumerable<UserEntity>> GetAllUsersFromDb()
         {
-            return _context.Users.ToList();
+            return await _context.Users.ToListAsync();
         }
 
         public async Task<bool> RegisterUserAsync(UserEntity user)

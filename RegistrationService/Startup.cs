@@ -33,10 +33,6 @@ namespace RegistrationService
                 .AddJsonFormatters();
 
             services.AddScoped<IUserRepository, UserRepository>();
-
-            services.AddDbContext<AppDbContext>(opt =>
-                    opt.UseSqlServer(Configuration.GetConnectionString("ChatHubDatabase")));
-
             var mappingConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new UserDTOToUserEntity());
@@ -45,6 +41,10 @@ namespace RegistrationService
             IMapper mapper = mappingConfig.CreateMapper();
 
             services.AddSingleton(mapper);
+
+            services.AddDbContext<AppDbContext>(opt =>
+                    opt.UseSqlServer(Configuration.GetConnectionString("ChatHubDatabase")));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
