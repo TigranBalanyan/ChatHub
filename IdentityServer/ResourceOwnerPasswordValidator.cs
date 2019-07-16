@@ -11,9 +11,12 @@ using System.Threading.Tasks;
 
 namespace IdentityServer
 {
+    /// <summary>
+    /// ResourceOwnerPasswordValidator
+    /// </summary>
     public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
     {
-        //repository to get user from db
+        // repository to get user from db
         private readonly IUserRepository _userRepository;
 
         public ResourceOwnerPasswordValidator(IUserRepository userRepository)
@@ -21,7 +24,12 @@ namespace IdentityServer
             _userRepository = userRepository; //DI
         }
 
-        //this is used to validate your user account with provided grant at /connect/token
+        // this is used to validate your user account with provided grant at /connect/token
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public async Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
         {
             try
