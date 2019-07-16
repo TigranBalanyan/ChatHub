@@ -14,22 +14,22 @@ namespace DbAccessLayer.Repository
         {
         }
 
-        public Task<UserDTO> FindAsync(string userName)
+        public Task<UserEntity> FindAsync(string userName)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<UserDTO>> GetActiveUsers()
+        public async Task<IEnumerable<UserEntity>> GetActiveUsers()
         {
             return await _context.Users.Where(p => p.IPLocal != null).ToListAsync();
         }
 
-        public IList<UserDTO> GetAllUsersFromDb()
+        public IList<UserEntity> GetAllUsersFromDb()
         {
             return _context.Users.ToList();
         }
 
-        public async Task<bool> RegisterUserAsync(UserDTO user)
+        public async Task<bool> RegisterUserAsync(UserEntity user)
         {
             if (await _context.Users.AnyAsync(p => p.Username == user.Username) ||  await _context.Users.AnyAsync(p => p.Email == user.Email))
             {

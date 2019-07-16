@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace DbAccessLayer.ModelsDTO
+namespace DbAccessLayer.Entities
 {
-    public class MessageDTO
+    public class MessageEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

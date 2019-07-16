@@ -10,7 +10,7 @@ namespace DbAccessLayer.ModelsDTO
     /// <summary>
     /// Model for User Table interaction
     /// </summary>
-    public class UserDTO
+    public class UserEntity
     {
 		[Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

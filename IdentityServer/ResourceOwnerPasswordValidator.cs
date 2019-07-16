@@ -62,7 +62,7 @@ namespace IdentityServer
             }
         }
 
-        public IEnumerable<Claim> GetUserClaims(UserDTO user)
+        public IEnumerable<Claim> GetUserClaims(UserEntity user)
         {
             return new List<Claim>
             {

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AccountControlService.Mapping;
+using AutoMapper;
 using DbAccessLayer.Context;
 using DbAccessLayer.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -30,20 +32,19 @@ namespace RegistrationService
                 .AddAuthorization()
                 .AddJsonFormatters();
 
-            services.AddAuthentication("Bearer")
-            .AddJwtBearer("Bearer", options =>
-            {
-                options.Authority = "http://localhost:5000";
-                options.RequireHttpsMetadata = false;
-
-                options.Audience = "RegistrationService";
-            });
-
             services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddDbContext<AppDbContext>(opt =>
                     opt.UseSqlServer(Configuration.GetConnectionString("ChatHubDatabase")));
 
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new UserDTOToUserEntity());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+
+            services.AddSingleton(mapper);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

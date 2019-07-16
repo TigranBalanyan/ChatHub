@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using AccountControlService.Resources;
+using AccountControlService.Models;
 using AutoMapper;
 using DbAccessLayer.ModelsDTO;
 using DbAccessLayer.Repository;
@@ -25,16 +25,16 @@ namespace RegistrationService.Controllers
 
         // POST: api/Users
         [HttpPost]
-        public async Task<IActionResult> RegisterUser([FromBody] User user)
+        public async Task<IActionResult> RegisterUser([FromBody] UserDTO user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var newUser = mapper.Map<User, UserDTO>(user);
+            var newUser = mapper.Map<UserDTO, UserEntity>(user);
                 
-            var response =  await userRepository.RegisterUserAsync(newUser);
-            if (!response)
+            var isREgistered =  await userRepository.RegisterUserAsync(newUser);
+            if (!isREgistered)
             {
                 return BadRequest("Please enter a different email or username");
             }
@@ -45,7 +45,7 @@ namespace RegistrationService.Controllers
         }
 
         [HttpGet]
-        public async Task<IList<UserDTO>> GetAllUsers()
+        public async Task<IList<UserEntity>> GetAllUsers()
         {
             return userRepository.GetAllUsersFromDb();
         }

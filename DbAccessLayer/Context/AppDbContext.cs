@@ -11,11 +11,10 @@ namespace DbAccessLayer.Context
     {
 		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
 		{
-
 		}
 
-		public DbSet<UserDTO> Users { get; set; }
-        public DbSet<MessageDTO> Messages { get; set; }
+		public DbSet<UserEntity> Users { get; set; }
+        public DbSet<MessageEntity> Messages { get; set; }
 
 	}
 }

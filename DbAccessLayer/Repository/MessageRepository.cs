@@ -16,7 +16,7 @@ namespace DbAccessLayer.Repository
         {
         }
 
-        public async Task<IEnumerable<MessageDTO>> GetUserMessages(string from, string to)
+        public async Task<IEnumerable<MessageEntity>> GetUserMessages(string from, string to)
         {
             return await _context.Messages.Where(message =>((message.From == from && message.To == to) || (message.From == to && message.To == from))).ToListAsync();
         }

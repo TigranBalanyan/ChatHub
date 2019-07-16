@@ -1,4 +1,5 @@
-﻿using DbAccessLayer.ModelsDTO;
+﻿using DbAccessLayer.Entities;
+using DbAccessLayer.ModelsDTO;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,6 @@ namespace DbAccessLayer.Repository
 {
     public interface IMessageRepository
     {
-        Task<IEnumerable<MessageDTO>> GetUserMessages(string from, string to);
+        Task<IEnumerable<MessageEntity>> GetUserMessages(string from, string to);
     }
 }
