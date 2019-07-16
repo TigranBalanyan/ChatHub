@@ -14,7 +14,7 @@ namespace DbAccessLayer.Repository
         {
         }
 
-        public Task<UserEntity> FindAsync(string userName)
+        public Task<UserEntity> GetUserByUsername(string userName)
         {
             throw new NotImplementedException();
         }
@@ -41,6 +41,18 @@ namespace DbAccessLayer.Repository
                await _context.SaveChangesAsync();
                return true;
             }
+        }
+
+        public IEnumerable<UserEntity> GetUsers()
+        {
+            var users = _context.Users.OrderBy(a => a.Username).ToList();
+            return users;
+        }
+
+        public Task<UserEntity> GetUserByID(int userId)
+        {
+            var a = _context.Users.Where<UserEntity>(user => user.Id == userId);
+            return a;
         }
     }
 }

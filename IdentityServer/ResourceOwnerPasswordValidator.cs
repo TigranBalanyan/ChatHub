@@ -35,7 +35,7 @@ namespace IdentityServer
             try
             {
                 //get your user model from db (by username - in my case its email)
-                var user =  await _userRepository.FindAsync(context.UserName);
+                var user =  await _userRepository.GetUserByUsername(context.UserName);
                 if (user != null)
                 {
                     //check if password match - remember to hash password if stored as hash in db
@@ -62,14 +62,13 @@ namespace IdentityServer
             }
         }
 
-        public IEnumerable<Claim> GetUserClaims(UserEntity user)
+        public static Claim[] GetUserClaims(UserEntity user)
         {
-            return new List<Claim>
+            return new Claim[]
             {
-                new Claim(JwtClaimTypes.Id, user.Id.ToString()??""),
-                new Claim(JwtClaimTypes.Name, user.FullName ?? ""),
-                new Claim(JwtClaimTypes.Email, user.Email?? ""),
-                new Claim(JwtClaimTypes.PreferredUserName, user.Username??"")
+                new Claim("user_id", user.Id.ToString()??""),
+                new Claim("username", user.Username ?? ""),
+                new Claim("email", user.Email?? ""),
             };
         }
     }

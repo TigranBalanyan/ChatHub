@@ -44,10 +44,10 @@ namespace RegistrationService.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<IList<UserEntity>> GetAllUsers()
-        {
-            return userRepository.GetAllUsersFromDb();
-        }
+        //[HttpGet]
+        //public async Task<IEnumerable<UserDTO>> GetAllUsers()
+        //{
+        //    return userRepository.GetAllUsersFromDb();
+        //}
     }
 }

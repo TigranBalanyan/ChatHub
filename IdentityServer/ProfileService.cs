@@ -29,11 +29,11 @@ namespace IdentityServer
                 if (!string.IsNullOrEmpty(context.Subject.Identity.Name))
                 {
                     //get user from db (in my case this is by email)
-                    var user = await _userRepository.FindAsync(context.Subject.Identity.Name);
+                    var user = await _userRepository.GetUserByUsername(context.Subject.Identity.Name);
 
                     if (user != null)
                     {
-                        var claims = validator.GetUserClaims(user);
+                        var claims = ResourceOwnerPasswordValidator.GetUserClaims(user);
 
                         //set issued claims to return
                         context.IssuedClaims = claims.Where(x => context.RequestedClaimTypes.Contains(x.Type)).ToList();
@@ -43,19 +43,20 @@ namespace IdentityServer
                 {
                     //get subject from context (this was set ResourceOwnerPasswordValidator.ValidateAsync),
                     //where and subject was set to my user id.
-                    var userId = context.Subject.Claims.FirstOrDefault(x => x.Type == JwtClaimTypes.Id);
+                    var userId = context.Subject.Claims.FirstOrDefault(x => x.Type == "sub");
 
                     if (!string.IsNullOrEmpty(userId?.Value) && long.Parse(userId.Value) > 0)
                     {
                         //get user from db (find user by user id)
-                        var user = await _userRepository.FindAsync(Convert.ToString(userId.Value));
+                        var user = await _userRepository.GetUserByID(int.Parse(userId.Value));
 
                         // issue the claims for the user
                         if (user != null)
                         {
-                            var claims = validator.GetUserClaims(user);
+                            var claims = ResourceOwnerPasswordValidator.GetUserClaims(user);
 
                             context.IssuedClaims = claims.Where(x => context.RequestedClaimTypes.Contains(x.Type)).ToList();
+                            context.IssuedClaims.AddRange(claims);
                         }
                     }
                 }
@@ -66,9 +67,27 @@ namespace IdentityServer
             }
         }
 
-        public Task IsActiveAsync(IsActiveContext context)
+        public async Task IsActiveAsync(IsActiveContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //get subject from context (set in ResourceOwnerPasswordValidator.ValidateAsync),
+                var userId = context.Subject.Claims.FirstOrDefault(x => x.Type == "user_id");
+
+                if (!string.IsNullOrEmpty(userId?.Value) && long.Parse(userId.Value) > 0)
+                {
+                    var user = await _userRepository.GetUserByID(int.Parse(userId.Value));
+
+                    if (user != null)
+                    {
+                        context.IsActive = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //handle error logging
+            }
         }
     }
 }

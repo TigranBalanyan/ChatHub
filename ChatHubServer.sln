@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "IdentityS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbAccessLayer", "DbAccessLayer\DbAccessLayer.csproj", "{0E7B5010-ACD6-4F9A-891B-21BC0E484D05}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageAPI", "..\repos\PornHubWPF\ChatHubWPF\MessageAPI\MessageAPI.csproj", "{3C31BE58-391D-4227-BD9A-FF1F8951DD47}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ActiveUserService", "..\VideoChat-master\LocalIPUpdater\LocalIPUpdater\ActiveUserService.csproj", "{99DB3CEB-7F37-4418-A339-15F483A4CFA6}"
 EndProject
 Global
@@ -31,10 +29,6 @@ Global
 		{0E7B5010-ACD6-4F9A-891B-21BC0E484D05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E7B5010-ACD6-4F9A-891B-21BC0E484D05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E7B5010-ACD6-4F9A-891B-21BC0E484D05}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C31BE58-391D-4227-BD9A-FF1F8951DD47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C31BE58-391D-4227-BD9A-FF1F8951DD47}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C31BE58-391D-4227-BD9A-FF1F8951DD47}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C31BE58-391D-4227-BD9A-FF1F8951DD47}.Release|Any CPU.Build.0 = Release|Any CPU
 		{99DB3CEB-7F37-4418-A339-15F483A4CFA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{99DB3CEB-7F37-4418-A339-15F483A4CFA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99DB3CEB-7F37-4418-A339-15F483A4CFA6}.Release|Any CPU.ActiveCfg = Release|Any CPU

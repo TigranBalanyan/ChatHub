@@ -28,45 +28,21 @@ namespace IdentityServer
         {
             // uncomment, if you wan to add an MVC-based UI
             //services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1);
-
+            services.AddIdentityServer()
+               .AddDeveloperSigningCredential()
+               .AddInMemoryApiResources(Config.GetApis())
+               .AddInMemoryIdentityResources(Config.GetIdentityResources())
+               .AddInMemoryClients(Config.GetClients())
+               .AddProfileService<ProfileService>();
 
             services.AddScoped<IUserRepository, UserRepository>();
-
-            var builder = services.AddIdentityServer()
-                .AddInMemoryIdentityResources(Config.GetIdentityResources())
-                .AddInMemoryApiResources(Config.GetApis())
-                .AddInMemoryClients(Config.GetClients())
-                .AddProfileService<ProfileService>();
-
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(o =>
-            {
-                o.Authority = "http://localhost:5000";
-                o.Audience = "ActiveUserService";
-                o.RequireHttpsMetadata = false;
-            });
-
             services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
             services.AddTransient<IProfileService, ProfileService>();
-
-            if (Environment.IsDevelopment())
-            {
-                builder.AddDeveloperSigningCredential();
-            }
-            else
-            {
-                throw new Exception("need to configure key material");
-            }
         }
-
         public void Configure(IApplicationBuilder app)
         {
             app.UseIdentityServer();
 
-            app.UseAuthentication();
 
             if (Environment.IsDevelopment())
             {
