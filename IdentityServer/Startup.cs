@@ -4,7 +4,7 @@
 using System;
 using System.IO;
 using IdentityServer4;
-using DbAccessLayer.Repositories;
+using DbAccessLayer.Repository;
 using IdentityServer4.AccessTokenValidation;
 using IdentityServer4.Services;
 using IdentityServer4.Validation;

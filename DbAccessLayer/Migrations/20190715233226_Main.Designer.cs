@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DbAccessLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190713051826_initial")]
-    partial class initial
+    [Migration("20190715233226_Main")]
+    partial class Main
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,7 +20,28 @@ namespace DbAccessLayer.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("DbAccessLayer.Models.User", b =>
+            modelBuilder.Entity("DbAccessLayer.ModelsDTO.MessageDTO", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("From")
+                        .IsRequired();
+
+                    b.Property<bool>("IsRead");
+
+                    b.Property<string>("MessageText");
+
+                    b.Property<string>("To")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("DbAccessLayer.ModelsDTO.UserDTO", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

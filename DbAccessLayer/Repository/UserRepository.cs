@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DbAccessLayer.Context;
-using DbAccessLayer.Models;
+using DbAccessLayer.ModelsDTO;
 using Microsoft.EntityFrameworkCore;
 
-namespace DbAccessLayer.Repositories
+namespace DbAccessLayer.Repository
 {
     public class UserRepository : BaseRepository, IUserRepository
     {
@@ -14,22 +14,22 @@ namespace DbAccessLayer.Repositories
         {
         }
 
-        public Task<User> FindAsync(string userName)
+        public Task<UserDTO> FindAsync(string userName)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<User>> GetActiveUsers()
+        public async Task<IEnumerable<UserDTO>> GetActiveUsers()
         {
             return await _context.Users.Where(p => p.IPLocal != null).ToListAsync();
         }
 
-        public IList<User> GetAllUsersFromDb()
+        public IList<UserDTO> GetAllUsersFromDb()
         {
             return _context.Users.ToList();
         }
 
-        public async Task<bool> RegisterUserAsync(User user)
+        public async Task<bool> RegisterUserAsync(UserDTO user)
         {
             if (await _context.Users.AnyAsync(p => p.Username == user.Username) ||  await _context.Users.AnyAsync(p => p.Email == user.Email))
             {

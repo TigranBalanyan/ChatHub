@@ -5,9 +5,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DbAccessLayer.Models
+namespace DbAccessLayer.ModelsDTO
 {
-    public class User
+    /// <summary>
+    /// Model for User Table interaction
+    /// </summary>
+    public class UserDTO
     {
 		[Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

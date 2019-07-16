@@ -1,4 +1,4 @@
-﻿using DbAccessLayer.Repositories;
+﻿using DbAccessLayer.Repository;
 using IdentityModel;
 using IdentityServer4.Models;
 using IdentityServer4.Services;

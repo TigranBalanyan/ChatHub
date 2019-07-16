@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using DbAccessLayer.Models;
-using DbAccessLayer.Repositories;
+using AccountControlService.Resources;
+using AutoMapper;
+using DbAccessLayer.ModelsDTO;
+using DbAccessLayer.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace RegistrationService.Controllers
@@ -14,9 +16,10 @@ namespace RegistrationService.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserRepository userRepository;
-
-        public UsersController(IUserRepository userRepository)
+        private readonly IMapper mapper; 
+        public UsersController(IUserRepository userRepository, IMapper mapper)
         {
+            this.mapper = mapper;
             this.userRepository = userRepository;
         }
 
@@ -28,7 +31,9 @@ namespace RegistrationService.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var response =  await userRepository.RegisterUserAsync(user);
+            var newUser = mapper.Map<User, UserDTO>(user);
+                
+            var response =  await userRepository.RegisterUserAsync(newUser);
             if (!response)
             {
                 return BadRequest("Please enter a different email or username");
@@ -40,7 +45,7 @@ namespace RegistrationService.Controllers
         }
 
         [HttpGet]
-        public async Task<IList<User>> GetAllUsers()
+        public async Task<IList<UserDTO>> GetAllUsers()
         {
             return userRepository.GetAllUsersFromDb();
         }

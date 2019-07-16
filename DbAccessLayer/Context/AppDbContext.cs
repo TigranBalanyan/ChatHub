@@ -1,4 +1,4 @@
-﻿using DbAccessLayer.Models;
+﻿using DbAccessLayer.ModelsDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,8 @@ namespace DbAccessLayer.Context
 
 		}
 
-		public DbSet<User> Users { get; set; }
+		public DbSet<UserDTO> Users { get; set; }
+        public DbSet<MessageDTO> Messages { get; set; }
 
 	}
 }

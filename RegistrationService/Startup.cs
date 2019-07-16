@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DbAccessLayer.Context;
-using DbAccessLayer.Repositories;
+using DbAccessLayer.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -42,7 +42,8 @@ namespace RegistrationService
             services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddDbContext<AppDbContext>(opt =>
-                    opt.UseSqlServer(Configuration.GetConnectionString("UserDatabase")));
+                    opt.UseSqlServer(Configuration.GetConnectionString("ChatHubDatabase")));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

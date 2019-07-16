@@ -1,5 +1,5 @@
-﻿using DbAccessLayer.Models;
-using DbAccessLayer.Repositories;
+﻿using DbAccessLayer.ModelsDTO;
+using DbAccessLayer.Repository;
 using IdentityModel;
 using IdentityServer4.Models;
 using IdentityServer4.Validation;
@@ -54,7 +54,7 @@ namespace IdentityServer
             }
         }
 
-        public IEnumerable<Claim> GetUserClaims(User user)
+        public IEnumerable<Claim> GetUserClaims(UserDTO user)
         {
             return new List<Claim>
             {

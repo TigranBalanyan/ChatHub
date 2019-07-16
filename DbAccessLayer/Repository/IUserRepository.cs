@@ -1,17 +1,16 @@
-﻿using DbAccessLayer.Models;
+﻿using DbAccessLayer.ModelsDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DbAccessLayer.Repositories;
 
-namespace DbAccessLayer.Repositories
+namespace DbAccessLayer.Repository
 {
     public interface IUserRepository
     {
-        Task<bool> RegisterUserAsync(User user);
-        IList<User> GetAllUsersFromDb();
-        Task<User> FindAsync(string userName);
-        Task<IEnumerable<User>> GetActiveUsers();
+        Task<bool> RegisterUserAsync(UserDTO user);
+        IList<UserDTO> GetAllUsersFromDb();
+        Task<UserDTO> FindAsync(string userName);
+        Task<IEnumerable<UserDTO>> GetActiveUsers();
     }
 }
