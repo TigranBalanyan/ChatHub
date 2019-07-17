@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using IdentityServer.Validator;
+using DbAccessLayer.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace IdentityServer
 {
@@ -28,7 +30,6 @@ namespace IdentityServer
         public void ConfigureServices(IServiceCollection services)
         {
             // uncomment, if you wan to add an MVC-based UI
-            //services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1);
             services.AddIdentityServer()
                .AddDeveloperSigningCredential()
                .AddInMemoryApiResources(Config.GetApis())
@@ -36,14 +37,16 @@ namespace IdentityServer
                .AddInMemoryClients(Config.GetClients())
                .AddProfileService<ProfileService>();
 
+            services.AddDbContext<AppDbContext>(c => c.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ChatHub;Trusted_Connection=True;"));
+
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
             services.AddTransient<IProfileService, ProfileService>();
+            services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1);
         }
         public void Configure(IApplicationBuilder app)
         {
             app.UseIdentityServer();
-
 
             if (Environment.IsDevelopment())
             {

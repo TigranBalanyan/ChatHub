@@ -42,6 +42,7 @@ namespace RegistrationService
 
             services.AddSingleton(mapper);
 
+            //connection string for DB access
             services.AddDbContext<AppDbContext>(opt =>
                     opt.UseSqlServer(Configuration.GetConnectionString("ChatHubDatabase")));
 

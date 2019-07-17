@@ -1,6 +1,5 @@
 ﻿using DbAccessLayer.Entities;
 using DbAccessLayer.Models;
-using DbAccessLayer.ModelsDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace DbAccessLayer.Context
 {
+    /// <summary>
+    /// Class for accesing the Db via EF Core
+    /// </summary>
     public class AppDbContext: DbContext
     {
 		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)

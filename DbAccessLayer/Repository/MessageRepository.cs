@@ -1,7 +1,7 @@
 ﻿using DbAccessLayer.Context;
 using DbAccessLayer.Entities;
 using DbAccessLayer.Models;
-using DbAccessLayer.ModelsDTO;
+using DbAccessLayer.Entities;
 using DbAccessLayer.Repository;
 using Microsoft.EntityFrameworkCore;
 using System;

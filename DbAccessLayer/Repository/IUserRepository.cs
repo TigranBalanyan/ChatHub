@@ -1,4 +1,4 @@
-﻿using DbAccessLayer.ModelsDTO;
+﻿using DbAccessLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

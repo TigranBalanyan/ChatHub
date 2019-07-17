@@ -5,7 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using AccountControlService.Models;
 using AutoMapper;
-using DbAccessLayer.ModelsDTO;
+using DbAccessLayer.Entities;
 using DbAccessLayer.Repository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,10 +19,15 @@ namespace RegistrationService.Controllers
         private readonly IMapper mapper; 
         public UsersController(IUserRepository userRepository, IMapper mapper)
         {
-            this.mapper = mapper;
-            this.userRepository = userRepository;
+            this.mapper = mapper; //DI
+            this.userRepository = userRepository; //DI
         }
 
+        /// <summary>
+        /// Method for user registration in database 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>user info</returns>
         // POST: api/Users
         [HttpPost]
         public async Task<IActionResult> RegisterUser([FromBody] UserDTO user)
@@ -33,8 +38,8 @@ namespace RegistrationService.Controllers
             }
             var newUser = mapper.Map<UserDTO, UserEntity>(user);
                 
-            var isREgistered =  await userRepository.RegisterUserAsync(newUser);
-            if (!isREgistered)
+            var isRegistered =  await userRepository.RegisterUserAsync(newUser);
+            if (!isRegistered)
             {
                 return BadRequest("Please enter a different email or username");
             }
