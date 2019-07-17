@@ -1,5 +1,6 @@
 ﻿using DbAccessLayer.Repository;
 using IdentityModel;
+using IdentityServer.Validator;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using System;

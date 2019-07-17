@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DbAccessLayer.Context;
+using DbAccessLayer.Models;
 using DbAccessLayer.ModelsDTO;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,12 +14,7 @@ namespace DbAccessLayer.Repository
         public UserRepository(AppDbContext context) : base(context)
         {
         }
-
-        public Task<UserEntity> GetUserByUsername(string userName)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public async Task<IEnumerable<UserEntity>> GetActiveUsers()
         {
             return await _context.Users.Where(p => p.IPLocal != null).ToListAsync();
@@ -49,10 +45,40 @@ namespace DbAccessLayer.Repository
             return users;
         }
 
-        public Task<UserEntity> GetUserByID(int userId)
+        public Task<UserDTO> GetUserByID(int userId)
         {
-            var a = _context.Users.Where<UserEntity>(user => user.Id == userId);
-            return a;
+            var task = new Task<UserDTO>(() =>
+            {
+                var userObject = _context.Users.FirstOrDefault<UserEntity>(user => user.Id == userId);
+                var userDTO = new UserDTO(userObject.FullName,userObject.Email,userObject.Username,userObject.Password);
+                return userDTO;
+            });
+
+            task.Start();
+
+            return task;
+        }
+
+        public Task<UserEntity> GetUserByUsername(string name)
+        {
+            var task = new Task<UserEntity>(() =>
+            {
+                var userDTO = new UserEntity();
+                var userObject = _context.Users.FirstOrDefault<UserEntity>(user => user.Username.Equals(username));
+                if (userRoleObject != null)
+                {
+                    var roleObject = context.Roles.FirstOrDefault<Role>(role => role.Id == userRoleObject.RoleID);
+                    if (roleObject != null)
+                    {
+                        userDTO = new UserDTO(userObject.Id, userObject.Name, userObject.Surname, userObject.DateOfBirth, userObject.Email, userObject.Username, userObject.Password, roleObject.Permission);
+                    }
+                }
+                return userDTO;
+            });
+
+            task.Start();
+
+            return task;
         }
     }
 }

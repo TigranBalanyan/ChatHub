@@ -10,9 +10,9 @@ namespace DbAccessLayer.Repository
     {
         Task<bool> RegisterUserAsync(UserEntity user);
         Task<IEnumerable<UserEntity>> GetAllUsersFromDb();
-        Task<UserEntity> GetUserByUsername(string userName);
         Task<IEnumerable<UserEntity>> GetActiveUsers();
         IEnumerable<UserEntity> GetUsers();
-        Task<UserEntity> GetUserByID(int userId);
+        Task<UserEntity> GetUserByID(int v);
+        Task<UserEntity> GetUserByUsername(string name);
     }
 }

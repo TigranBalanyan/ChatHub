@@ -1,5 +1,6 @@
 ﻿using DbAccessLayer.Context;
 using DbAccessLayer.Entities;
+using DbAccessLayer.Models;
 using DbAccessLayer.ModelsDTO;
 using DbAccessLayer.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -17,22 +18,25 @@ namespace DbAccessLayer.Repository
         {
         }
 
-        public async Task<IEnumerable<MessageEntity>> GetUserMessages(string from, string to)
+        public async  Task<IEnumerable<MessageEntity>> MasseageNotification(MessageToFrom notif)
         {
-            return await _context.Messages.Where(message =>((message.From == from && message.To == to) || (message.From == to && message.To == from))).ToListAsync();
+            var unreadMessages = await _context.Messages.Where(mess => mess.IsRead == false && mess.To == notif.To && mess.From == notif.From).ToListAsync();
+            return unreadMessages;
         }
 
-        public void MakeMessageRead(string from, string to)
+        public async Task<bool> SendMessage(MessageEntity message)
         {
-            var unreadMessages = _context.Messages.Where(message => message.IsRead == false);
-            
-        }
-
-        public async Task SendMessage(MessageEntity message)
-        {
-            using(_context.Messages.AddAsync(message))
+            try
             {
-                await _context.SaveChangesAsync();
+                using (_context.Messages.AddAsync(message))
+                {
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
     }

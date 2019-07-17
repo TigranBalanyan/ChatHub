@@ -9,7 +9,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace IdentityServer
+namespace IdentityServer.Validator
 {
     /// <summary>
     /// ResourceOwnerPasswordValidator
