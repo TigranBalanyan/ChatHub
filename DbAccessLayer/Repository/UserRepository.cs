@@ -45,13 +45,22 @@ namespace DbAccessLayer.Repository
             return users;
         }
 
-        public Task<UserDTO> GetUserByID(int userId)
+        public Task<UserEntity> GetUserByID(int userId)
         {
-            var task = new Task<UserDTO>(() =>
+            var task = new Task<UserEntity>(() =>
             {
-                var userObject = _context.Users.FirstOrDefault<UserEntity>(user => user.Id == userId);
-                var userDTO = new UserDTO(userObject.FullName,userObject.Email,userObject.Username,userObject.Password);
-                return userDTO;
+                UserEntity userEntity = new UserEntity();
+                var userObject = _context.Users.FirstOrDefault(user => user.Id == userId);
+                var userRoleObject = _context.User_Role.FirstOrDefault(userRole => userRole.UserID == userId);
+                if (userRoleObject != null)
+                {
+                    var roleObject = _context.Roles.FirstOrDefault<Role>(role => role.Id == userRoleObject.RoleID);
+                    if (roleObject != null)
+                    {
+                        userEntity = new UserEntity(userObject.Id, userObject.FullName, userObject.Email, userObject.Username, userObject.Password, roleObject.Permission);
+                    }
+                }
+                 return userEntity;
             });
 
             task.Start();
@@ -59,36 +68,27 @@ namespace DbAccessLayer.Repository
             return task;
         }
 
-        //public Task<UserEntity> GetUserByUsername(string name)
-        //{
-        //    var task = new Task<UserEntity>(() =>
-        //    {
-        //        var userDTO = new UserEntity();
-        //        var userObject = _context.Users.FirstOrDefault<UserEntity>(user => user.Username.Equals(username));
-        //        if (userRoleObject != null)
-        //        {
-        //            var roleObject = context.Roles.FirstOrDefault<Role>(role => role.Id == userRoleObject.RoleID);
-        //            if (roleObject != null)
-        //            {
-        //                userDTO = new UserDTO(userObject.Id, userObject.Name, userObject.Surname, userObject.DateOfBirth, userObject.Email, userObject.Username, userObject.Password, roleObject.Permission);
-        //            }
-        //        }
-        //        return userDTO;
-        //    });
-
-        //    task.Start();
-
-        //    return task;
-        //}
-
-        Task<UserEntity> IUserRepository.GetUserByID(int v)
+        public Task<UserEntity> GetUserByUsername(string userName)
         {
-            throw new NotImplementedException();
-        }
+            var task = new Task<UserEntity>(() =>
+            {
+                var userEntity = new UserEntity();
+                var userObject = _context.Users.FirstOrDefault<UserEntity>(user => user.Username.Equals(userName));
+                var userRoleObject = _context.User_Role.FirstOrDefault<User_Role>(userRole => userRole.UserID == userObject.Id);
+                if (userRoleObject != null)
+                {
+                    var roleObject = _context.Roles.FirstOrDefault<Role>(role => role.Id == userRoleObject.RoleID);
+                    if (roleObject != null)
+                    {
+                        userEntity = new UserEntity(userObject.Id, userObject.FullName, userObject.Email, userObject.Username, userObject.Password, roleObject.Permission);
+                    }
+                }
+                return userEntity;
+            });
 
-        public Task<UserEntity> GetUserByUsername(string name)
-        {
-            throw new NotImplementedException();
+            task.Start();
+
+            return task;
         }
     }
 }

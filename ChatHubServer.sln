@@ -5,13 +5,13 @@ VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountControlService", "RegistrationService\AccountControlService.csproj", "{7F7A77DC-5DAE-43F6-B52B-1F6F6400D75F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "IdentityServer\IdentityServer.csproj", "{B1317D62-7A34-42C7-8A2F-139B282708D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorizationService", "IdentityServer\AuthorizationService.csproj", "{B1317D62-7A34-42C7-8A2F-139B282708D2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbAccessLayer", "DbAccessLayer\DbAccessLayer.csproj", "{0E7B5010-ACD6-4F9A-891B-21BC0E484D05}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ActiveUserService", "..\VideoChat-master\LocalIPUpdater\LocalIPUpdater\ActiveUserService.csproj", "{99DB3CEB-7F37-4418-A339-15F483A4CFA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageService", "MessageService\MessageService.csproj", "{5515C129-FCDD-43A6-AA81-20CD73B20F4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageService", "MessageService\MessageService.csproj", "{5515C129-FCDD-43A6-AA81-20CD73B20F4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,5 @@
 ﻿using DbAccessLayer.Entities;
+using DbAccessLayer.Models;
 using DbAccessLayer.ModelsDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,6 +16,8 @@ namespace DbAccessLayer.Context
 		}
 
 		public DbSet<UserEntity> Users { get; set; }
+        public DbSet<User_Role> User_Role { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public DbSet<MessageEntity> Messages { get; set; }
 
 	}

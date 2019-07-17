@@ -12,22 +12,35 @@ namespace DbAccessLayer.ModelsDTO
     /// </summary>
     public class UserEntity
     {
-		[Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int Id { get; set; }
 
-		[Required]
-		public string FullName { get; set; }
+        public int Id;
+        public string fullName;
+        public string email;
+        public string username;
+        public string password;
+        public string permission;
 
-		[Required]
-		[EmailAddress]
+        public UserEntity()
+        {
+        }
+
+        public UserEntity(int id, string fullName, string email, string username, string password, string permission)
+        {
+            this.Id = id;
+            this.fullName = fullName;
+            this.email = email;
+            this.username = username;
+            this.password = password;
+            this.permission = permission;
+        }
+
+        public string FullName { get; set; }
+
+        [EmailAddress]
 		public string Email { get; set; }
 
-		[Required]
 		public string Username { get; set; }
 
-		[Required]
-		[DataType(DataType.Password)]
 		public string Password { get; set; }
 
 		public string IPLocal { get; set; }
