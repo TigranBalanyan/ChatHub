@@ -3,8 +3,6 @@ using DbAccessLayer.Entities;
 using MessageService.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MessageService.Mapping
 {
@@ -13,7 +11,6 @@ namespace MessageService.Mapping
         public MessageDTOMessageEntity()
         {
             CreateMap<MessageDTO, MessageEntity>();
-            CreateMap<IEnumerable<MessageDTO>, IEnumerable<MessageEntity>>();
         }
     }
 }

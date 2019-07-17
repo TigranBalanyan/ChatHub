@@ -31,18 +31,18 @@ namespace MessageService
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddDbContext<AppDbContext>(opt =>
+                    opt.UseSqlServer(Configuration.GetConnectionString("ChatHubDatabase")));
+
             services.AddScoped<IMessageRepository, MessageRepository>();
+
             var mappingConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MessageDTOMessageEntity());
             });
 
             IMapper mapper = mappingConfig.CreateMapper();
-
             services.AddSingleton(mapper);
-
-            services.AddDbContext<AppDbContext>(opt =>
-                    opt.UseSqlServer(Configuration.GetConnectionString("ChatHubDatabase")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

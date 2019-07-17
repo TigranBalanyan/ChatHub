@@ -59,26 +59,36 @@ namespace DbAccessLayer.Repository
             return task;
         }
 
+        //public Task<UserEntity> GetUserByUsername(string name)
+        //{
+        //    var task = new Task<UserEntity>(() =>
+        //    {
+        //        var userDTO = new UserEntity();
+        //        var userObject = _context.Users.FirstOrDefault<UserEntity>(user => user.Username.Equals(username));
+        //        if (userRoleObject != null)
+        //        {
+        //            var roleObject = context.Roles.FirstOrDefault<Role>(role => role.Id == userRoleObject.RoleID);
+        //            if (roleObject != null)
+        //            {
+        //                userDTO = new UserDTO(userObject.Id, userObject.Name, userObject.Surname, userObject.DateOfBirth, userObject.Email, userObject.Username, userObject.Password, roleObject.Permission);
+        //            }
+        //        }
+        //        return userDTO;
+        //    });
+
+        //    task.Start();
+
+        //    return task;
+        //}
+
+        Task<UserEntity> IUserRepository.GetUserByID(int v)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<UserEntity> GetUserByUsername(string name)
         {
-            var task = new Task<UserEntity>(() =>
-            {
-                var userDTO = new UserEntity();
-                var userObject = _context.Users.FirstOrDefault<UserEntity>(user => user.Username.Equals(username));
-                if (userRoleObject != null)
-                {
-                    var roleObject = context.Roles.FirstOrDefault<Role>(role => role.Id == userRoleObject.RoleID);
-                    if (roleObject != null)
-                    {
-                        userDTO = new UserDTO(userObject.Id, userObject.Name, userObject.Surname, userObject.DateOfBirth, userObject.Email, userObject.Username, userObject.Password, roleObject.Permission);
-                    }
-                }
-                return userDTO;
-            });
-
-            task.Start();
-
-            return task;
+            throw new NotImplementedException();
         }
     }
 }

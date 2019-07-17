@@ -22,11 +22,13 @@ namespace MessageService.Controllers
             this.mapper = mapper;
             this.messageRepository = messageRepository;
         }
+
+        [HttpPost]
         public async Task<IActionResult> SendMessage([FromBody] MessageDTO message)
         {
             var newMessage = mapper.Map<MessageDTO, MessageEntity>(message);
 
-            if(await messageRepository.SendMessage(newMessage))
+            if (await messageRepository.SendMessage(newMessage))
             {
                 return Ok();
             }
@@ -38,10 +40,32 @@ namespace MessageService.Controllers
             return BadRequest();
         }
 
-        public async Task<IEnumerable<MessageDTO>> MessageNotification(MessageToFrom notif)
+        [HttpGet]
+        public async Task<IEnumerable<MessageDTO>> ReadMessages(MessageToFrom notif)
         {
             var unreadMessages = await messageRepository.MasseageNotification(notif);
-            return mapper.Map<IEnumerable<MessageEntity>, IEnumerable<MessageDTO>>(unreadMessages);
+            var unreadMessagesDTO = new List<MessageDTO>();
+
+            foreach (var messageEntity in unreadMessages)
+            {
+                var messageDTO = new MessageDTO
+                {
+                    From = messageEntity.From,
+                    To = messageEntity.To,
+                    MessageText = messageEntity.MessageText
+                };
+
+                unreadMessagesDTO.Add(messageDTO);
+            }
+
+            return unreadMessagesDTO;
+        }
+
+        [Route("read")]
+        [HttpPost]
+        public async Task MakeMessageRead(MessageToFrom notif)
+        {
+            await messageRepository.MakeMessageRead(notif);
         }
     }
 }

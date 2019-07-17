@@ -10,5 +10,6 @@ namespace DbAccessLayer.Repository
     {
         Task<bool> SendMessage(MessageEntity message);
         Task<IEnumerable<MessageEntity>> MasseageNotification(MessageToFrom notif);
+        Task MakeMessageRead(MessageToFrom notif);
     }
 }
