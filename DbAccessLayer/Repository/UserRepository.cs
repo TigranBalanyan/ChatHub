@@ -6,6 +6,8 @@ using DbAccessLayer.Context;
 using DbAccessLayer.Models;
 using DbAccessLayer.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace DbAccessLayer.Repository
 {
@@ -52,13 +54,13 @@ namespace DbAccessLayer.Repository
                 UserEntity userEntity = new UserEntity();
                 var userObject = _context.Users.FirstOrDefault(user => user.Id == userId);
                 //var userRoleObject = _context.User_Role.FirstOrDefault(userRole => userRole.UserID == userId);
-                //if (userRoleObject != null)
-                //{
+                if (userObject != null)
+                {
                 //    var roleObject = _context.Roles.FirstOrDefault<Role>(role => role.Id == userRoleObject.RoleID);
                 //    if (roleObject != null)
                 //    {
                         userEntity = new UserEntity(userObject.Id, userObject.FullName, userObject.Email, userObject.Username, userObject.Password);
-                  //  }
+                 }
                 //}
                  return userEntity;
             });
@@ -75,20 +77,31 @@ namespace DbAccessLayer.Repository
                 var userEntity = new UserEntity();
                 var userObject = _context.Users.FirstOrDefault<UserEntity>(user => user.Username.Equals(userName));
                // var userRoleObject = _context.User_Role.FirstOrDefault<User_Role>(userRole => userRole.UserID == userObject.id);
-                //if (userRoleObject != null)
-                //{
+                if (userObject != null)
+                {
                 //    var roleObject = _context.Roles.FirstOrDefault<Role>(role => role.Id == userRoleObject.RoleID);
                 //    if (roleObject != null)
                 //    {
-                    //}
-                userEntity = new UserEntity(userObject.Id, userObject.FullName, userObject.Email, userObject.Username, userObject.Password);
-                //}
+                    userEntity = new UserEntity(userObject.Id, userObject.FullName, userObject.Email, userObject.Username, userObject.Password);
+                }
                 return userEntity;
+                //}
             });
 
             task.Start();
 
             return task;
         }
+        //public string Encrypt(string plainText)
+        //{
+        //    if (plainText == null) throw new ArgumentNullException("plainText");
+
+        //    //encrypt data
+        //    var data = Encoding.Unicode.GetBytes(plainText);
+        //    byte[] encrypted = ProtectedData.Protect(data, null, Scope);
+
+        //    //return as base64 string
+        //    return Convert.ToBase64String(encrypted);
+        //}
     }
 }

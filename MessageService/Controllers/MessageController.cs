@@ -7,12 +7,14 @@ using DbAccessLayer.Entities;
 using DbAccessLayer.Models;
 using DbAccessLayer.Repository;
 using MessageService.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MessageService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MessageController : Controller
     {
         private readonly IMessageRepository messageRepository;
@@ -40,10 +42,11 @@ namespace MessageService.Controllers
             return BadRequest();
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<MessageDTO>> ReadMessages(MessageToFrom notif)
+        [Route("unreadmessages")]
+        [HttpPost]
+        public async Task<IEnumerable<MessageDTO>> ReadUnreadMessages(MessageToFrom notif)
         {
-            var unreadMessages = await messageRepository.MasseageNotification(notif);
+            var unreadMessages = await messageRepository.UnreadMasseageNotification(notif);
             var unreadMessagesDTO = new List<MessageDTO>();
 
             foreach (var messageEntity in unreadMessages)
@@ -59,6 +62,27 @@ namespace MessageService.Controllers
             }
 
             return unreadMessagesDTO;
+        }
+
+        [Route("readallmessages")]
+        [HttpPost]
+        public async Task<IEnumerable<MessageDTO>> ReadAllMessages(MessageToFrom notif)
+        {   
+            var allEntityMessages = await messageRepository.ReadAllMessages(notif);
+            var allMessagesDTO = new List<MessageDTO>();
+
+            foreach (var message in allEntityMessages)
+            {
+                var messageDTO = new MessageDTO
+                {
+                    From = message.From,
+                    To = message.To,
+                    MessageText = message.MessageText
+                };
+
+                allMessagesDTO.Add(messageDTO);
+            }
+            return allMessagesDTO;
         }
 
         [Route("read")]

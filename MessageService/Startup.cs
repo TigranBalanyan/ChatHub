@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DbAccessLayer.Context;
 using DbAccessLayer.Repository;
+using IdentityServer4.AccessTokenValidation;
 using MessageService.Mapping;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -31,8 +31,20 @@ namespace MessageService
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<AppDbContext>(opt =>
-                    opt.UseSqlServer(Configuration.GetConnectionString("ChatHubDatabase")));
+            services.AddDbContext<AppDbContext>(options => {
+                options.UseSqlServer(Configuration.GetConnectionString("ChatHubDatabase"));
+            });
+
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                   .AddIdentityServerAuthentication(options =>
+                   {
+                       options.Authority = "http://localhost:5000";
+                       options.RequireHttpsMetadata = false;
+
+                       options.ApiName = "ActiveUserService";
+                   }
+               );
+
 
             services.AddScoped<IMessageRepository, MessageRepository>();
 
@@ -58,8 +70,8 @@ namespace MessageService
             {
                 app.UseHsts();
             }
-
-            app.UseHttpsRedirection();
+            app.UseAuthentication();
+          //  app.UseHttpsRedirection();
             app.UseMvc();
         }
     }

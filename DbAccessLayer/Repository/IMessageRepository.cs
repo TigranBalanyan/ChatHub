@@ -9,7 +9,8 @@ namespace DbAccessLayer.Repository
     public interface IMessageRepository
     {
         Task<bool> SendMessage(MessageEntity message);
-        Task<IEnumerable<MessageEntity>> MasseageNotification(MessageToFrom notif);
+        Task<IEnumerable<MessageEntity>> UnreadMasseageNotification(MessageToFrom notif);
         Task MakeMessageRead(MessageToFrom notif);
+        Task<IEnumerable<MessageEntity>> ReadAllMessages(MessageToFrom notif);
     }
 }

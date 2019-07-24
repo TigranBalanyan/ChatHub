@@ -38,7 +38,6 @@ namespace IdentityServer
         {
             return new List<ApiResource>
             {
-                new ApiResource("AccountControlService", "Account Service"),
                 new ApiResource("ActiveUserService", "Active Users Service"),
                 new ApiResource("MessageService", "Message Service"),
             };
@@ -62,7 +61,7 @@ namespace IdentityServer
                     },
 
                     // scopes that client has access to
-                    AllowedScopes = { "ActiveUserService"}
+                    AllowedScopes = { "ActiveUserService", "MessageService" }
                 }
             };
         }
