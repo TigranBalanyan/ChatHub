@@ -4,6 +4,9 @@ using System.Text;
 
 namespace DbAccessLayer.Models
 {
+    /// <summary>
+    /// Model for Role Table Interaction
+    /// </summary>
     public class Role
     {
         public int Id { get; set; }

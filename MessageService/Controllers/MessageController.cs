@@ -14,15 +14,15 @@ namespace MessageService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize] 
     public class MessageController : Controller
     {
         private readonly IMessageRepository messageRepository;
         private readonly IMapper mapper;
         public MessageController(IMessageRepository messageRepository, IMapper mapper)
         {
-            this.mapper = mapper;
-            this.messageRepository = messageRepository;
+            this.mapper = mapper; //DI
+            this.messageRepository = messageRepository; //DI
         }
 
         [HttpPost]
@@ -68,7 +68,7 @@ namespace MessageService.Controllers
         [HttpPost]
         public async Task<IEnumerable<MessageDTO>> ReadAllMessages(MessageToFrom notif)
         {   
-            var allEntityMessages = await messageRepository.ReadAllMessages(notif);
+            var allEntityMessages = await messageRepository.GetAllMessages(notif);
             var allMessagesDTO = new List<MessageDTO>();
 
             foreach (var message in allEntityMessages)

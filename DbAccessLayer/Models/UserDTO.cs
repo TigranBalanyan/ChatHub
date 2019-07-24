@@ -4,6 +4,9 @@ using System.Text;
 
 namespace DbAccessLayer.Models
 {
+    /// <summary>
+    /// Model for client data interaction
+    /// </summary>
     public class UserDTO
     {
         public UserDTO(string fullName, string email, string username, string password)

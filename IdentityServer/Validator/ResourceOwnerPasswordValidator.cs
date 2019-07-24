@@ -26,7 +26,7 @@ namespace IdentityServer.Validator
 
         // this is used to validate your user account with provided grant at /connect/token
         /// <summary>
-        /// 
+        /// Validating user credentials, username and pasword 
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
@@ -34,11 +34,11 @@ namespace IdentityServer.Validator
         {
             try
             {
-                //get your user model from db (by username - in my case its email)
+                //get your user model from db 
                 var user =  await _userRepository.GetUserByUsername(context.UserName);
                 if (user != null)
                 {
-                    //check if password match - remember to hash password if stored as hash in db
+                    //check if password match 
                     if (user.Password == context.Password)
                     {
                         //set the result
@@ -62,6 +62,11 @@ namespace IdentityServer.Validator
             }
         }
 
+        /// <summary>
+        /// Gets the claims, by this claims access toke in generated
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public static Claim[] GetUserClaims(UserEntity user)
         {
             return new Claim[]

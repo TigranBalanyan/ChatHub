@@ -17,10 +17,10 @@ namespace IdentityServer
 
         public ProfileService(IUserRepository userRepository)
         {
-            _userRepository = userRepository;
+            _userRepository = userRepository; //DI
         }
 
-        //Get user profile date in terms of claims when calling /connect/userinfo
+        //Get user profile date in terms of claims when calling 
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
             var validator = new ResourceOwnerPasswordValidator(_userRepository);
@@ -29,7 +29,7 @@ namespace IdentityServer
                 //depending on the scope accessing the user data.
                 if (!string.IsNullOrEmpty(context.Subject.Identity.Name))
                 {
-                    //get user from db (in my case this is by email)
+                    //get user from db
                     var user = await _userRepository.GetUserByUsername(context.Subject.Identity.Name);
 
                     if (user != null)
@@ -64,7 +64,7 @@ namespace IdentityServer
             }
             catch (Exception ex)
             {
-                //log your error
+                throw new Exception(ex.Message);
             }
         }
 
@@ -87,7 +87,7 @@ namespace IdentityServer
             }
             catch (Exception ex)
             {
-                //handle error logging
+                throw new Exception(ex.Message);
             }
         }
     }

@@ -41,12 +41,6 @@ namespace DbAccessLayer.Repository
             }
         }
 
-        public IEnumerable<UserEntity> GetUsers()
-        {
-            var users = _context.Users.OrderBy(a => a.Username).ToList();
-            return users;
-        }
-
         public Task<UserEntity> GetUserByID(int userId)
         {
             var task = new Task<UserEntity>(() =>

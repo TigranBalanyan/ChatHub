@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 namespace MessageService.Mapping
 {
+    /// <summary>
+    /// Maps Message DTO to Message Entity
+    /// </summary>
     public class MessageDTOMessageEntity : Profile
     {
         public MessageDTOMessageEntity()

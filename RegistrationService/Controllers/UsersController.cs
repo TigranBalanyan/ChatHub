@@ -36,9 +36,11 @@ namespace RegistrationService.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var newUser = mapper.Map<UserDTO, UserEntity>(user);
+
+            var newUser = mapper.Map<UserDTO, UserEntity>(user); //Maps DTO to Entity
                 
-            var isRegistered =  await userRepository.RegisterUserAsync(newUser);
+            var isRegistered =  await userRepository.RegisterUserAsync(newUser); //Registers new User in Db
+
             if (!isRegistered)
             {
                 return BadRequest("Please enter a different email or username");

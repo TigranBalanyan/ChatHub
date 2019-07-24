@@ -7,16 +7,23 @@ using System.Text;
 
 namespace DbAccessLayer.Entities
 {
+    /// <summary>
+    /// Model for Message Table interaction
+    /// </summary>
     public class MessageEntity
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] //attribute makes the Message Id auto generated in Db
         public int Id { get; set; }
+
         [Required]
         public string From { get; set; }
+
         [Required]
         public string To { get; set; }
+
         public string MessageText { get; set; }
+
         [Required]
         public bool IsRead { get; set; }
     }

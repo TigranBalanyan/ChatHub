@@ -1,7 +1,4 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
-using System;
+﻿using System;
 using System.IO;
 using IdentityServer4;
 using DbAccessLayer.Repository;
@@ -29,7 +26,7 @@ namespace IdentityServer
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // uncomment, if you wan to add an MVC-based UI
+            //Added IdentityServer4 to a configurations
             services.AddIdentityServer()
                .AddDeveloperSigningCredential()
                .AddInMemoryApiResources(Config.GetApis())
@@ -37,10 +34,14 @@ namespace IdentityServer
                .AddInMemoryClients(Config.GetClients())
                .AddProfileService<ProfileService>();
 
+            //Accesing Db via connection string
             services.AddDbContext<AppDbContext>(c => c.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ChatHub;Trusted_Connection=True;"));
 
+            //DI for User Repository pattern
             services.AddScoped<IUserRepository, UserRepository>();
+            //DI for password validation
             services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
+            //DI for Profile service class
             services.AddTransient<IProfileService, ProfileService>();
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1);
         }

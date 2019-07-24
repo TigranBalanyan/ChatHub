@@ -3,15 +3,13 @@ using System.Collections.Generic;
 
 namespace IdentityServer
 {
+    /// <summary>
+    /// Configuring Identity server resources and clients
+    /// </summary>
     public static class Config
     {
         public static IEnumerable<IdentityResource> GetIdentityResources()
         {
-            var customProfile = new IdentityResource(
-                   name: "custom.profile",
-                   displayName: "Custom profile",
-                   claimTypes: new[] { "role", "user_id" });
-
             return new List<IdentityResource>
             {
                 new IdentityResources.OpenId(),
@@ -43,6 +41,10 @@ namespace IdentityServer
             };
         }
 
+        /// <summary>
+        /// Configures client credentials for authorization
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<Client> GetClients()
         {
             return new List<Client>
