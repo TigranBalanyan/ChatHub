@@ -35,5 +35,6 @@ namespace DbAccessLayer.Repository
         /// <param name="notif"></param>
         /// <returns></returns>
         Task<IEnumerable<MessageEntity>> GetAllMessages(MessageToFrom notif);
+        Task<IEnumerable<MessageEntity>> GetAllUnreadMessages();
     }
 }

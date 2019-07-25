@@ -9,7 +9,7 @@ namespace MessageService.Models
     /// Model for Message Client interaction
     /// </summary>
     public class MessageDTO
-    {
+    { 
         public string From { get; set; }
         public string To { get; set; }
         public string MessageText { get; set; }

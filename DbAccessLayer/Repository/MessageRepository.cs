@@ -60,5 +60,11 @@ namespace DbAccessLayer.Repository
                 return false; //message is not sent
             }
         }
+
+        public async Task<IEnumerable<MessageEntity>> GetAllUnreadMessages()
+        {
+            var unreadMessages = _context.Messages.Where(message => message.IsRead == false);
+            return await unreadMessages.ToListAsync();
+        }
     }
 }

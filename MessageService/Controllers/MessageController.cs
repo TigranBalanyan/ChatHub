@@ -91,5 +91,26 @@ namespace MessageService.Controllers
         {
             await messageRepository.MakeMessageRead(notif);
         }
+
+        [Route("allunread")]
+        [HttpGet]
+        public async Task<IEnumerable<MessageDTO>> GetAllUnreadMessages()
+        {
+            var allUnreadMessagesEntity = await messageRepository.GetAllUnreadMessages();
+            var allUnreadMessagesDTO = new List<MessageDTO>();
+
+            foreach (var unreadMessage in allUnreadMessagesEntity)
+            {
+                var messageDTO = new MessageDTO
+                {
+                    From = unreadMessage.From,
+                    To = unreadMessage.To,
+                    MessageText = unreadMessage.MessageText
+                };
+
+                allUnreadMessagesDTO.Add(messageDTO);
+            }
+            return allUnreadMessagesDTO;
+        }
     }
 }
