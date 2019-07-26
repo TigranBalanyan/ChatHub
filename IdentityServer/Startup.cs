@@ -49,10 +49,10 @@ namespace IdentityServer
         {
             app.UseIdentityServer();
 
-            if (Environment.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            //if (Environment.IsDevelopment())
+            //{
+            //    app.Us;
+            //}
 
             // uncomment if you want to support static files
             //app.UseStaticFiles();

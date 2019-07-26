@@ -21,6 +21,7 @@ namespace DbAccessLayer.Context
         public DbSet<User_Role> User_Role { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<MessageEntity> Messages { get; set; }
+        public DbSet<VideoToFrom> VideoRequests { get; set; }
 
 	}
 }
